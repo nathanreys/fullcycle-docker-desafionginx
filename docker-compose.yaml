@@ -39,10 +39,13 @@ services:
       context: ./nginx
     image: nathanreys/nginx:fullcycle
     container_name: nginx
+    command: dockerize -wait tcp://node:3000 -timeout 60s nginx "-g" "daemon off;"
     networks: 
       - node-network
     ports:
       - "8080:80"
+    depends_on:
+      - node
 
 networks:
   node-network:
